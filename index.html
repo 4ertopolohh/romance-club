@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#160d24">
+  <meta name="description" content="Сказочная коллекция интерактивных историй о любви и воспоминаниях.">
+  <title>Созвездие наших историй</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Marck+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="app" class="app">
+    <section id="home-screen" class="screen home-screen" aria-labelledby="home-title">
+      <div id="menu-art" class="home-art" aria-hidden="true">
+        <img id="menu-image" class="home-art-image" alt="" hidden>
+        <div class="moon"></div><div class="palace palace-large"></div>
+        <div class="star star-a">✦</div><div class="star star-b">✧</div>
+        <div class="star star-c">✦</div><div class="star star-d">✧</div>
+      </div>
+      <div class="home-content">
+        <header class="hero">
+          <span class="eyebrow">✦ &nbsp; интерактивная сказка &nbsp; ✦</span>
+          <div class="hero-crest" aria-hidden="true"><span>♛</span></div>
+          <h1 id="home-title">Созвездие наших историй</h1>
+          <p id="home-subtitle" class="hero-subtitle">Каждое счастливое мгновение становится легендой</p>
+          <div class="ornament" aria-hidden="true"><span>✧</span></div>
+        </header>
+        <main class="catalogue-panel">
+          <div class="section-heading">
+            <div><span class="eyebrow">ГЛАВЫ НАШЕЙ СКАЗКИ</span><h2>Книга историй</h2></div>
+            <button class="icon-button" type="button" data-action="settings" aria-label="Настройки" title="Настройки">⚙</button>
+          </div>
+          <p class="section-intro">Выбери историю — и открой дверь в новый мир.</p>
+          <div id="story-list" class="story-grid"></div>
+        </main>
+        <footer class="home-footer">Создано с любовью <span aria-hidden="true">♥</span></footer>
+      </div>
+    </section>
+
+    <section id="detail-screen" class="screen detail-screen" hidden aria-labelledby="detail-title">
+      <div class="detail-glow" aria-hidden="true"></div>
+      <div class="detail-wrap">
+        <header class="screen-top"><button type="button" class="back-link" data-action="home">← <span>К историям</span></button><span class="top-mark">✧ СКАЗОЧНАЯ КНИГА ✧</span></header>
+        <div id="detail-cover" class="detail-cover cover-art"><div class="cover-center"><span class="cover-symbol">♕</span><span id="detail-genre"></span></div></div>
+        <div class="detail-body">
+          <span class="eyebrow">ВОЛШЕБНАЯ ИСТОРИЯ</span>
+          <h1 id="detail-title"></h1>
+          <p id="detail-description"></p>
+          <div id="detail-progress" class="progress-caption"></div>
+          <div id="detail-actions" class="detail-actions"></div>
+          <div class="ornament" aria-hidden="true"><span>✧</span></div>
+          <div class="section-heading"><h2>Главы</h2></div>
+          <div id="chapter-list" class="chapter-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="game-screen" class="screen game-screen" hidden aria-label="Игра">
+      <div id="game-stage" class="game-stage preset-palace">
+        <img id="scene-photo" class="scene-photo" alt="" hidden>
+        <div class="stage-orbit" aria-hidden="true"></div>
+        <div class="palace stage-palace" aria-hidden="true"></div>
+        <div id="character-layer" class="character-layer" aria-hidden="true"></div>
+        <div class="stage-vignette" aria-hidden="true"></div>
+      </div>
+      <header class="game-bar">
+        <button type="button" class="game-icon" data-action="pause" aria-label="Игровое меню" title="Игровое меню">☰</button>
+        <div class="game-chapter-info"><strong id="game-story-name"></strong><span id="game-chapter-name"></span></div>
+        <button type="button" class="game-icon" data-action="history" aria-label="История диалогов" title="История диалогов">☷</button>
+        <button id="game-back" type="button" class="game-icon" data-action="back" aria-label="Назад" title="Вернуться назад">↶</button>
+      </header>
+      <div id="scene-sheet" class="scene-sheet" hidden></div>
+      <div id="dialogue-dock" class="dialogue-dock" hidden>
+        <div id="dialogue-frame" class="dialogue-frame">
+          <div class="speaker-ribbon"><span id="speaker-name"></span><span id="speaker-flower" aria-hidden="true">✧</span></div>
+          <div id="dialogue-text" class="dialogue-text" aria-live="off"></div>
+          <div class="dialogue-bottom"><span id="dialogue-hint">Коснись, чтобы продолжить</span><button id="next-button" type="button" class="next-button" data-action="next" aria-label="Далее">⌄</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="error-screen" class="screen error-screen" hidden>
+      <div class="error-card"><span class="error-glyph">✧</span><h1>Заклинание прервалось</h1><p id="error-description">Не удалось открыть эту сцену.</p><button class="btn btn-primary" type="button" data-action="home">Вернуться к историям</button></div>
+    </section>
+  </div>
+  <div id="effect-layer" class="effect-layer" aria-hidden="true"></div>
+  <div id="toast-stack" class="toast-stack" role="status" aria-live="polite"></div>
+  <div id="modal" class="modal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-heading"><h2 id="modal-title"></h2><button class="icon-button" type="button" data-action="close-modal" aria-label="Закрыть окно">✕</button></div>
+      <div id="modal-body" class="modal-body"></div>
+    </section>
+  </div>
+</body>
+</html>
